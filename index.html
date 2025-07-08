@@ -46,6 +46,45 @@
         <div class="hero-background"></div>
     </section>
 
+    <!-- Seção de Celulares Usados -->
+    <section class="used-phones-section">
+        <div class="container">
+            <div class="used-phones-content">
+                <div class="used-phones-text">
+                    <h2 class="used-phones-title">Celulares Usados Revisados</h2>
+                    <p class="used-phones-description" id="used-phones-description">
+                        Aproveite nossa seleção especial de celulares usados totalmente revisados! 
+                        Todos os aparelhos passam por rigorosa inspeção técnica e vêm com garantia. 
+                        Qualidade garantida com preços imperdíveis!
+                    </p>
+                    <div class="used-phones-features">
+                        <div class="feature-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Totalmente Revisados</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>Com Garantia</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-tag"></i>
+                            <span>Preços Especiais</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="used-phones-cta">
+                    <a href="https://wa.me/p/9687746434685649/5511980833734" 
+                       class="used-phones-button" target="_blank">
+                        <i class="fas fa-mobile-alt"></i>
+                        <span>Ver Celulares Disponíveis</span>
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                    <p class="used-phones-note">Consulte disponibilidade via WhatsApp</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Services Section -->
     <section id="services" class="services">
         <div class="container">
@@ -176,3 +215,57 @@
                 </div>
             </div>
         </div>
+    </section>
+
+    <!-- Script para edição do texto -->
+    <script src="script.js"></script>
+    <script>
+        // Sistema simples de edição para o texto dos celulares usados
+        document.addEventListener('DOMContentLoaded', function() {
+            const description = document.getElementById('used-phones-description');
+            
+            // Duplo clique para editar
+            description.addEventListener('dblclick', function() {
+                const currentText = this.textContent;
+                const textarea = document.createElement('textarea');
+                textarea.value = currentText;
+                textarea.style.width = '100%';
+                textarea.style.height = '100px';
+                textarea.style.padding = '10px';
+                textarea.style.border = '2px solid #27ae60';
+                textarea.style.borderRadius = '8px';
+                textarea.style.fontSize = '16px';
+                textarea.style.fontFamily = 'inherit';
+                
+                this.style.display = 'none';
+                this.parentNode.insertBefore(textarea, this.nextSibling);
+                textarea.focus();
+                
+                // Salvar ao pressionar Enter ou perder foco
+                function saveText() {
+                    description.textContent = textarea.value;
+                    description.style.display = 'block';
+                    textarea.remove();
+                    
+                    // Salvar no localStorage
+                    localStorage.setItem('usedPhonesDescription', textarea.value);
+                }
+                
+                textarea.addEventListener('blur', saveText);
+                textarea.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter' && !e.shiftKey) {
+                        e.preventDefault();
+                        saveText();
+                    }
+                });
+            });
+            
+            // Carregar texto salvo
+            const savedText = localStorage.getItem('usedPhonesDescription');
+            if (savedText) {
+                description.textContent = savedText;
+            }
+        });
+    </script>
+</body>
+</html>
